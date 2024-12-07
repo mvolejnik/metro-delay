@@ -1,4 +1,4 @@
-FROM azul/zulu-openjdk-alpine:21.0.2-jre-headless
+FROM azul/zulu-openjdk-alpine:23.0.1-23.30-jre-headless
 
 RUN apk -U add perf 
 ADD remote-resources-uber.jar /
