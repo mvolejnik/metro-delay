@@ -1,0 +1,42 @@
+networks:
+  grafana:
+    driver: bridge
+
+services:
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:11.4.0
+    hostname: grafana
+    ports:
+      - "3000:3000"
+    networks:
+      - grafana
+  loki:
+    container_name: loki
+    image: grafana/loki:3.2.2
+    hostname: loki
+    ports:
+      - "3100:3100"
+    networks:
+      - grafana
+    volumes:
+      - type: bind
+        source: ./loki.yaml
+        target: /etc/loki/local-config.yaml
+  promtail:
+    container_name: promtail
+    image: grafana/promtail:3.2.2
+    hostname: promtail
+    networks:
+      - grafana
+    volumes:
+      - type: bind
+        source: ./config
+        target: /mnt/config
+      - type: bind
+        source: /var/log
+        target: /var/log
+      - type: bind
+        source: /var/lib/docker/containers
+        target: /var/lib/docker/containers
+    command: "-config.file=/mnt/config/config.yaml"
