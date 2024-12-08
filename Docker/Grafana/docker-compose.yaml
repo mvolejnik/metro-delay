@@ -31,12 +31,15 @@ services:
       - grafana
     volumes:
       - type: bind
-        source: ./config
-        target: /mnt/config
+        source: ./promtail.yaml
+        target: /etc/promtail/promtail.yaml
       - type: bind
         source: /var/log
         target: /var/log
       - type: bind
         source: /var/lib/docker/containers
         target: /var/lib/docker/containers
-    command: "-config.file=/mnt/config/config.yaml"
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock        
+    command: "-config.file=/etc/promtail/promtail.yaml"
