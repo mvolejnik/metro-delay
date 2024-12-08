@@ -1,3 +1,10 @@
+networks:
+  metrodelay:
+    driver: bridge
+
 services:
   remote-resources:
     image: metro-delay/remote-resources:0.0.1
+    container_name: remote-resources
+    networks:
+      - metrodelay

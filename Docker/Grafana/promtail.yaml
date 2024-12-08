@@ -10,13 +10,31 @@ client:
   url: http://loki:3100/api/prom/push
 
 scrape_configs:
-  - job_name: flog_scrape
+  - job_name: remote_resources
+    pipeline_stages:
+      - static_labels:
+          app: metrodelay
     docker_sd_configs:
       - host: unix:///var/run/docker.sock
         refresh_interval: 5s
-#        filters:
-#          - name: name
-#            values: [flog]
+        filters:
+          - name: name
+            values: [remote-resources]
+    relabel_configs:
+      - source_labels: ['__meta_docker_container_name']
+        regex: '/(.*)'
+        target_label: 'container'
+
+  - job_name: grafana
+    pipeline_stages:
+      - static_labels:
+          app: grafana
+    docker_sd_configs:
+      - host: unix:///var/run/docker.sock
+        refresh_interval: 5s
+        filters:
+          - name: name
+            values: [grafana, loki, promtail]
     relabel_configs:
       - source_labels: ['__meta_docker_container_name']
         regex: '/(.*)'
