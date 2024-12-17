@@ -36,8 +36,9 @@ import app.metrodelay.libs.rss.RssException;
 import app.metrodelay.libs.rss.impl.Rss20Impl;
 import app.metrodelay.libs.rss.jaxb.rss20.Guid;
 import app.metrodelay.libs.rss.jaxb.rss20.RssItem;
+import app.metrodelay.server.status.OperatorFactory;
 
-public class DppFactory {
+public class DppFactory implements OperatorFactory{
 
   private static final Logger l = LogManager.getLogger(DppFactory.class);
 
