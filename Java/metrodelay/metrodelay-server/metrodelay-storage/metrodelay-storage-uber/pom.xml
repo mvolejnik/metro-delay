@@ -1,26 +1,26 @@
-<?xml version="1.0"?>
-<project
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-  xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
+    <artifactId>metrodelay-storage</artifactId>
     <groupId>app.metrodelay.server</groupId>
-    <artifactId>metrodelay-server</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <relativePath>../pom.xml</relativePath>
+    <version>1.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>remote-resources-uber</artifactId>
+  <groupId>app.metrodelay.server</groupId>
+  <artifactId>metrodelay-storage-uber</artifactId>
+  <version>1.0-SNAPSHOT</version>
 
-  <packaging>jar</packaging>
-  <name>Metro Delay - Remote resources - App</name>
-  <url>https://github.com/mvolejnik/metrodelay</url>        
+  <name>Metro Delay - Storage - App</name>
+  <!-- FIXME change it to the project's website -->
+  <url>http://www.example.com</url>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+
   <build>
-    <finalName>remote-resources-uber</finalName>
+    <finalName>metrodelay-storage-uber</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -45,7 +45,7 @@
             <configuration>
               <transformers>
                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                  <mainClass>app.metrodelay.server.App</mainClass>
+                  <mainClass>app.metrodelay.server.storage.App</mainClass>
                 </transformer>
               </transformers>
             </configuration>
@@ -56,39 +56,27 @@
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
         <configuration>
-          <mainClass>app.metrodelay.server.App</mainClass>
+          <mainClass>app.metrodelay.server.storage.App</mainClass>
         </configuration>
       </plugin>
     </plugins>
   </build>
-
+  
   <dependencies>
     <dependency>
       <groupId>app.metrodelay.server</groupId>
-      <artifactId>lib-status-updates</artifactId>
+      <artifactId>metrodelay-storage-core</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>app.metrodelay.server</groupId>
-      <artifactId>lib-remote-resources</artifactId>
+      <artifactId>metrodelay-storage-web</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>app.metrodelay.server</groupId>
       <artifactId>lib-registry</artifactId>
       <version>0.0.1-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>jakarta.servlet</groupId>
-      <artifactId>jakarta.servlet-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.quartz-scheduler</groupId>
-      <artifactId>quartz</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.quartz-scheduler</groupId>
-      <artifactId>quartz-jobs</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>

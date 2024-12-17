@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>app.metrodelay</groupId>
@@ -12,7 +11,7 @@
   <packaging>pom</packaging>
   <version>0.0.1-SNAPSHOT</version>
   <name>Metro Delay - Server Application</name>
-  <url>https://github.com/mvolejnik/public-transport-delays</url>
+  <url>https://github.com/mvolejnik/metrodelay</url>
   <modules>
     <module>metrodelay-core</module>
     <module>lib-status-updates</module>
@@ -21,6 +20,6 @@
     <module>remote-resources-uber</module>
     <module>metrodelay-rest</module>
     <module>lib-registry</module>
+    <module>metrodelay-storage</module>
   </modules>
-  
 </project>

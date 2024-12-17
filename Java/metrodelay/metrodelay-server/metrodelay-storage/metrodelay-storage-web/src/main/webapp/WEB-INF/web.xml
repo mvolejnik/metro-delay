@@ -1,0 +1,52 @@
+<web-app
+  xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+  version="3.1">
+
+  <display-name>Transport for City - REST WS</display-name>
+
+  <context-param>
+    <description>Scheduler jobs interval.</description>
+    <param-name>schedulerjobinterval</param-name>
+    <param-value>PT2M</param-value>
+  </context-param>
+  <context-param>
+    <description>Registry multicast IP address (224.0.0.0/4).</description>
+    <param-name>registryMulticastIp</param-name>
+    <param-value>233.146.53.48</param-value>
+  </context-param>
+  <context-param>
+    <description>Registry multicast port.</description>
+    <param-name>registryMulticastPort</param-name>
+    <param-value>6839</param-value>
+  </context-param>
+  <context-param>
+    <description>Status update service URI.</description>
+    <param-name>serviceStatusUpdate</param-name>
+    <param-value>urn:metrodelay.app:service:statusupdate:1.0</param-value>
+  </context-param>
+
+  <servlet>
+    <servlet-name>jakarta.ws.rs.core.Application</servlet-name>
+    <init-param>
+      <param-name>jersey.config.server.provider.packages</param-name>
+      <param-value>app.metrodelay.server.api.rs</param-value>
+    </init-param>
+    <init-param>
+      <param-name>jersey.config.server.tracing.type</param-name>
+      <param-value>ALL</param-value> <!-- TODO -->
+    </init-param>
+    <init-param>
+      <param-name>jersey.config.server.tracing.threshold</param-name>
+      <param-value>TRACE</param-value> <!-- TODO -->
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>jakarta.ws.rs.core.Application</servlet-name>
+    <url-pattern>/api/*</url-pattern>
+  </servlet-mapping>
+
+</web-app>

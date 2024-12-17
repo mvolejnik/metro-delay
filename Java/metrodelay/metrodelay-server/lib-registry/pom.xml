@@ -12,7 +12,7 @@
   <artifactId>lib-registry</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>Metro Delay - Lib - Registry</name>
-    <url>https://github.com/mvolejnik/public-transport-delays</url>
+    <url>https://github.com/mvolejnik/metrodelay</url>
   
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -31,7 +31,7 @@
 		<servlet-name>jakarta.ws.rs.core.Application</servlet-name>
 		<init-param>
 			<param-name>jersey.config.server.provider.packages</param-name>
-			<param-value>app.ptd.server.ws.rs</param-value>
+			<param-value>app.metrodelay.server.api.rs</param-value>
 		</init-param>
 		<init-param>
 			<param-name>jersey.config.server.tracing.type</param-name>

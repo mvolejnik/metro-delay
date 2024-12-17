@@ -7,7 +7,7 @@ Configuration:
         pattern: "%d %-5p [%t] %c{1.} - %m%n"
   Loggers:
     Logger:
-      - name: app.ptd
+      - name: app.metrodelay
         additivity: false
         level: info
         AppenderRef:

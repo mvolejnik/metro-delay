@@ -12,7 +12,7 @@
     <artifactId>metrodelay-rest-web</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Metro Delay - REST API Web</name>
-    <url>https://github.com/mvolejnik/public-transport-delays</url>
+    <url>https://github.com/mvolejnik/metrodelay</url>
     
     <packaging>war</packaging>
   

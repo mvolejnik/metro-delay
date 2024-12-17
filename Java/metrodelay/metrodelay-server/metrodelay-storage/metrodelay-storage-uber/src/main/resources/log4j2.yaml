@@ -12,6 +12,10 @@ Configuration:
         level: info
         AppenderRef:
           ref: stdout
+      - name: org.apache.http
+        level: warn
+        AppenderRef:
+          ref: stdout
     Root:
       level: info
       AppenderRef:
