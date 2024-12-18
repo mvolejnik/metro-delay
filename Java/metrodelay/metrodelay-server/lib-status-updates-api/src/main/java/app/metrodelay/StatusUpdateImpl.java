@@ -1,5 +1,6 @@
-package app.metrodelay.server.status;
+package app.metrodelay;
 
+import app.metrodelay.StatusUpdate;
 import java.net.URL;
 import java.util.Collection;
 import java.util.Objects;

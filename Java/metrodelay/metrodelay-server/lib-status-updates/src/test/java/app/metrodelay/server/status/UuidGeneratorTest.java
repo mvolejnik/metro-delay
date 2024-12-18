@@ -6,7 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import app.metrodelay.server.status.StatusUpdateException;
+import app.metrodelay.StatusUpdateException;
 import app.metrodelay.server.status.UuidGenerator;
 
 import static org.junit.jupiter.api.Assertions.assertNotEquals;

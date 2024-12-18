@@ -1,4 +1,4 @@
-package app.metrodelay.server.status;
+package app.metrodelay;
 
 import java.net.URL;
 import java.util.Collection;

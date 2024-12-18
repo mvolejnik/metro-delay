@@ -1,5 +1,7 @@
 package app.metrodelay.server.status;
 
+import app.metrodelay.StatusUpdate;
+
 public class StatusUpdateBuilder {
 
 	public StatusUpdateBuilder() {

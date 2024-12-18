@@ -14,8 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import app.metrodelay.server.status.StatusUpdate;
-import app.metrodelay.server.status.StatusUpdateException;
+import app.metrodelay.StatusUpdate;
+import app.metrodelay.StatusUpdateException;
 import app.metrodelay.server.status.cz.prg.dpp.DppFactory;
 
 public class DppFactoryTest {

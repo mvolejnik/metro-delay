@@ -21,5 +21,6 @@
     <module>metrodelay-rest</module>
     <module>lib-registry</module>
     <module>metrodelay-storage</module>
+    <module>lib-status-updates-api</module>
   </modules>
 </project>

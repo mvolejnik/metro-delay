@@ -4,6 +4,8 @@
  */
 package app.metrodelay.server.status;
 
+import app.metrodelay.StatusUpdateException;
+import app.metrodelay.StatusUpdate;
 import java.io.InputStream;
 import java.util.List;
 

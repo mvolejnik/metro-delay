@@ -14,4 +14,4 @@ jobs:
         distribution: 'zulu'
         cache: maven
     - name: Build with Maven
-      run: mvn -B package --file Java/metrodelay
+      run: mvn -B package --file Java/metrodelay -T 2

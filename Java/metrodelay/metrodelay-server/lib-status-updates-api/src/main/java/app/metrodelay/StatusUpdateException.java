@@ -1,4 +1,4 @@
-package app.metrodelay.server.status;
+package app.metrodelay;
 
 public class StatusUpdateException extends Exception {
 
