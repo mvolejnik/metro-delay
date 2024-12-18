@@ -1,5 +1,6 @@
 package app.metrodelay.server.scheduler;
 
+import app.metrodelay.server.Registry;
 import app.metrodelay.server.notification.impl.HttpClientNotifier;
 import app.metrodelay.server.notification.impl.StatusUpdateNotificationImpl;
 import app.metrodelay.server.remoteresources.http.HttpResource;
@@ -7,6 +8,8 @@ import app.metrodelay.server.remoteresources.RemoteResourceException;
 import app.metrodelay.server.status.ResourceCache;
 import java.io.InputStream;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -24,6 +27,7 @@ public class GetUrlResourceJob implements Job {
     static final String DATA_OPERATOR = "opr";
     static final String DATA_URL = "url";
     private static final Logger l = LogManager.getLogger(GetUrlResourceJob.class);
+    private static final String STORAGE_PATH = "/countries/%s/cities/%s/operators/%s";
 
   @Override
   public void execute(JobExecutionContext context) throws JobExecutionException {
@@ -55,7 +59,16 @@ public class GetUrlResourceJob implements Job {
   }
   
   private void notifyServices(String operatorId, InputStream content){
-      NOTIFICATION_EXECUTOR.submit(() -> new HttpClientNotifier().send(new StatusUpdateNotificationImpl(content)));
+      var baseUrl = Registry.serviceRegistry().get(URI.create("urn:metrodelay.app:service:statusupdate:1.0"));
+      if (baseUrl.isPresent()) {
+        try {
+          var operatorPathParts = operatorId.split("\\.", 3);
+          var serviceUrl = new URI(baseUrl.toString() + STORAGE_PATH.formatted(operatorPathParts[0], operatorPathParts[1], operatorPathParts[2])).toURL();
+          NOTIFICATION_EXECUTOR.submit(() -> new HttpClientNotifier().send(serviceUrl, new StatusUpdateNotificationImpl(content)));
+        } catch (MalformedURLException|URISyntaxException ex) {
+          l.error("unable to send {} notification to {}", operatorId, baseUrl, ex);
+        }
+      }
   }
 
 }
