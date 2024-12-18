@@ -91,6 +91,7 @@ public class QuartzInit implements AutoCloseable {
                     DATE_TIME_FORMATTER.format(startAt), jobTimeParameters.interval());
             JobDetail job = newJob(GetUrlResourceJob.class)
                     .withIdentity(jobId + "~job", "download")
+                    .usingJobData(GetUrlResourceJob.DATA_OPERATOR, jobId)
                     .usingJobData(GetUrlResourceJob.DATA_URL, url.toExternalForm())
                     .build();
             Trigger trigger = newTrigger().withIdentity(jobId + "~trigger", "download")

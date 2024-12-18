@@ -21,12 +21,14 @@ public class GetUrlResourceJob implements Job {
     private static final ResourceCache RESOURCE_CACHE = new ResourceCache();
     private static final int NOTIFICATION_POOL_SIZE = 5; 
     private static final ExecutorService NOTIFICATION_EXECUTOR = Executors.newFixedThreadPool(NOTIFICATION_POOL_SIZE);
+    static final String DATA_OPERATOR = "opr";
     static final String DATA_URL = "url";
     private static final Logger l = LogManager.getLogger(GetUrlResourceJob.class);
 
   @Override
   public void execute(JobExecutionContext context) throws JobExecutionException {
     l.info("execute:: job started [{}]", context.getJobDetail().getKey());
+    var operatorParam = context.getJobDetail().getJobDataMap().getString(DATA_OPERATOR);
     var urlParam = context.getJobDetail().getJobDataMap().getString(DATA_URL);
     l.debug("execute:: resource url '{}'", urlParam);
     try {
@@ -37,7 +39,7 @@ public class GetUrlResourceJob implements Job {
       var resource = new HttpResource().content(url, cached.isPresent() ? cached.get().fingerprint().orElse(null) : null, null);
       l.debug("execute:: resource has content '{}'", resource.isPresent());
       resource.ifPresent(r -> {
-          notifyServices(r.content().get());
+          notifyServices(operatorParam, r.content().get());
           RESOURCE_CACHE.resource(url, r);
       });
     } catch (MalformedURLException | RemoteResourceException e) {
@@ -52,7 +54,7 @@ public class GetUrlResourceJob implements Job {
     l.info("execute:: job [{}] finished ✓", context.getJobDetail().getKey());
   }
   
-  private void notifyServices(InputStream content){
+  private void notifyServices(String operatorId, InputStream content){
       NOTIFICATION_EXECUTOR.submit(() -> new HttpClientNotifier().send(new StatusUpdateNotificationImpl(content)));
   }
 
