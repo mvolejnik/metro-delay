@@ -15,8 +15,8 @@ public class Registry {
   private static ServiceRegistry registry;
 
   static void serviceRegistry(ServiceRegistry registry) {
-    synchronized (registry) {
-      if (registry == null) {
+    synchronized (Registry.class) {
+      if (Registry.registry == null) {
         Registry.registry = registry;
       }
     }
