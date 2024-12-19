@@ -1,10 +1,12 @@
 package app.metrodelay.server.scheduler;
 
+import app.metrodelay.server.status.StatusUpdateException;
 import app.metrodelay.server.Registry;
 import app.metrodelay.server.notification.impl.HttpClientNotifier;
 import app.metrodelay.server.notification.impl.StatusUpdateNotificationImpl;
 import app.metrodelay.server.remoteresources.http.HttpResource;
 import app.metrodelay.server.remoteresources.RemoteResourceException;
+import app.metrodelay.server.status.ContentFactoryRegistry;
 import app.metrodelay.server.status.ResourceCache;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -31,7 +33,7 @@ public class GetUrlResourceJob implements Job {
 
   @Override
   public void execute(JobExecutionContext context) throws JobExecutionException {
-    l.info("execute:: job started [{}]", context.getJobDetail().getKey());
+    l.info("execute:: job [{}] started", context.getJobDetail().getKey());
     var operatorParam = context.getJobDetail().getJobDataMap().getString(DATA_OPERATOR);
     var urlParam = context.getJobDetail().getJobDataMap().getString(DATA_URL);
     l.debug("execute:: resource url '{}'", urlParam);
@@ -43,8 +45,8 @@ public class GetUrlResourceJob implements Job {
       var resource = new HttpResource().content(url, cached.isPresent() ? cached.get().fingerprint().orElse(null) : null, null);
       l.debug("execute:: resource has content '{}'", resource.isPresent());
       resource.ifPresent(r -> {
-          notifyServices(operatorParam, r.content().get());
-          RESOURCE_CACHE.resource(url, r);
+        RESOURCE_CACHE.resource(url, r);
+        notifyServices(operatorParam, r.content().get());
       });
     } catch (MalformedURLException | RemoteResourceException e) {
       l.error("Incorrect URL to download resource '{}'", urlParam);
@@ -58,16 +60,21 @@ public class GetUrlResourceJob implements Job {
     l.info("execute:: job [{}] finished ✓", context.getJobDetail().getKey());
   }
   
-  private void notifyServices(String operatorId, InputStream content){
+  protected void notifyServices(String operatorId, InputStream content){
       var baseUrl = Registry.serviceRegistry().get(URI.create("urn:metrodelay.app:service:statusupdate:1.0"));
+      var contentFactory = ContentFactoryRegistry.get(operatorId);
       if (baseUrl.isPresent()) {
         try {
+          contentFactory.statusUpdates(content);
           var operatorPathParts = operatorId.split("\\.", 3);
-          var serviceUrl = new URI(baseUrl.toString() + STORAGE_PATH.formatted(operatorPathParts[0], operatorPathParts[1], operatorPathParts[2])).toURL();
-          NOTIFICATION_EXECUTOR.submit(() -> new HttpClientNotifier().send(serviceUrl, new StatusUpdateNotificationImpl(content)));
+          var serviceUrl = new URI(baseUrl.get().toString() + STORAGE_PATH.formatted(operatorPathParts[0], operatorPathParts[1], operatorPathParts[2])).toURL();
+          NOTIFICATION_EXECUTOR.submit(
+                  () -> new HttpClientNotifier().send(serviceUrl, new StatusUpdateNotificationImpl(content)));
         } catch (MalformedURLException|URISyntaxException ex) {
           l.error("unable to send {} notification to {}", operatorId, baseUrl, ex);
-        }
+        } catch (StatusUpdateException ex) {
+            l.error("unable to parse notification", ex);
+          }
       }
   }
 

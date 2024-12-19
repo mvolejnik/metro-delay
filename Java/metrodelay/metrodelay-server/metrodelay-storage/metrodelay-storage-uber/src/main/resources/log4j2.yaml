@@ -9,13 +9,13 @@ Configuration:
     Logger:
       - name: app.metrodelay
         additivity: false
-        level: info
+        level: debug
         AppenderRef:
           ref: stdout
-      - name: org.apache.http
-        level: warn
-        AppenderRef:
-          ref: stdout
+#      - name: org.apache.http
+#        level: warn
+#        AppenderRef:
+#          ref: stdout
     Root:
       level: info
       AppenderRef:

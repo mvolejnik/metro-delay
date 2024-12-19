@@ -1,6 +1,5 @@
 package app.metrodelay.server.status;
 
-import app.metrodelay.StatusUpdateException;
 import java.nio.BufferUnderflowException;
 import java.nio.ByteBuffer;
 import java.security.MessageDigest;

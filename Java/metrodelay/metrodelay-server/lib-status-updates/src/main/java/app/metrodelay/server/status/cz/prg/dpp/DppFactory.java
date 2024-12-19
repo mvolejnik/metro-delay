@@ -1,6 +1,6 @@
 package app.metrodelay.server.status.cz.prg.dpp;
 
-import static app.metrodelay.ServiceStatus.*;
+import static app.metrodelay.server.status.ServiceStatus.*;
 
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -26,10 +26,10 @@ import org.w3c.dom.CharacterData;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Element;
 
-import app.metrodelay.ServiceStatus;
-import app.metrodelay.StatusUpdate;
-import app.metrodelay.StatusUpdateException;
-import app.metrodelay.StatusUpdateImpl;
+import app.metrodelay.server.status.ServiceStatus;
+import app.metrodelay.server.status.StatusUpdate;
+import app.metrodelay.server.status.StatusUpdateException;
+import app.metrodelay.server.status.StatusUpdateImpl;
 import app.metrodelay.server.status.UuidGenerator;
 import app.metrodelay.libs.rss.Rss;
 import app.metrodelay.libs.rss.RssException;

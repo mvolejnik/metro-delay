@@ -1,4 +1,4 @@
-package app.metrodelay;
+package app.metrodelay.server.status;
 
 public enum ServiceStatus {
   

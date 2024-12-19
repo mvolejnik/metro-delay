@@ -1,13 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package app.metrodelay.server.storage.rs;
 
+import app.metrodelay.server.status.StatusUpdate;
+import app.metrodelay.server.status.StatusUpdateImpl;
+import jakarta.json.bind.Jsonb;
+import jakarta.json.bind.JsonbBuilder;
 import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.core.MediaType;
+import java.io.InputStream;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,16 +17,19 @@ import org.apache.logging.log4j.Logger;
  *
  * @author mvolejnik
  */
-@Path("/status")
+@Path("/")
 public class Status {
   
   private static final Logger l = LogManager.getLogger(Status.class);
 	
-	@POST
+	@PUT
   @Consumes(MediaType.APPLICATION_JSON)
-	@Path("/countries/{country}/cities/{city}/operators/{operator}")
-	public void status(){
-		l.debug("status::");
+	@Path("/countries/{country}/cities/{city}/operators/{operator}/updates/{guid}")
+	public void status( @PathParam("guid") String guid, InputStream statusUpdate){
+		l.debug("status:: {}", guid);
+    Jsonb jsonb = JsonbBuilder.create();
+    var update = jsonb.fromJson(statusUpdate, StatusUpdateImpl.class);
+    l.debug("status:: {}", update);
 	}
   
   

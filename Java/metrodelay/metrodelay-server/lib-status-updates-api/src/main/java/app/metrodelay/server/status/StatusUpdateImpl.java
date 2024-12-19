@@ -1,6 +1,6 @@
-package app.metrodelay;
+package app.metrodelay.server.status;
 
-import app.metrodelay.StatusUpdate;
+import app.metrodelay.server.status.StatusUpdate;
 import java.net.URL;
 import java.util.Collection;
 import java.util.Objects;
@@ -20,6 +20,9 @@ public class StatusUpdateImpl implements StatusUpdate {
   private String type;
   private Collection<String> lines;
   private URL infoReference;
+
+  public StatusUpdateImpl() {
+  }
 	
   public StatusUpdateImpl(UUID uuid, String title, String description, String type, Collection<String> lines, URL infoReference) {
     super();
@@ -59,6 +62,30 @@ public class StatusUpdateImpl implements StatusUpdate {
   @Override
   public URL getInfoReference() {
     return infoReference;
+  }
+
+  public void setUuid(UUID uuid) {
+    this.uuid = uuid;
+  }
+
+  public void setTitle(String title) {
+    this.title = title;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public void setType(String type) {
+    this.type = type;
+  }
+
+  public void setLines(Collection<String> lines) {
+    this.lines = lines;
+  }
+
+  public void setInfoReference(URL infoReference) {
+    this.infoReference = infoReference;
   }
 
   @Override

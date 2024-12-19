@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package app.metrodelay.server.management;
 
 import app.metrodelay.server.registry.ServiceRegistryClient;
@@ -46,7 +41,7 @@ public class RegistryInit implements ServletContextListener {
             ServiceRegistryClient registryClient = new ServiceRegistryClientImpl(
                     new InetSocketAddress(context.getInitParameter(REGISTRY_MULTICAST_IP).trim(), Integer.parseInt(context.getInitParameter(REGISTRY_MULTICAST_PORT).trim())),
                     new URI(context.getInitParameter(REGISTRY_STATUS_UPDATE_SERVICE_URI).trim()),
-                    URI.create("http://localhost:8002" + context.getContextPath()).toURL());
+                    URI.create("http://localhost:8001" + context.getContextPath()).toURL());
             scheduler.scheduleWithFixedDelay(() -> {
                 l.info("Register service {}", registryClient.getServiceUri());
                 registryClient.register();

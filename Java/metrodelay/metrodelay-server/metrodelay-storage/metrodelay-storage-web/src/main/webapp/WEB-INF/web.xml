@@ -7,11 +7,6 @@
   <display-name>Transport for City - REST WS</display-name>
 
   <context-param>
-    <description>Scheduler jobs interval.</description>
-    <param-name>schedulerjobinterval</param-name>
-    <param-value>PT2M</param-value>
-  </context-param>
-  <context-param>
     <description>Registry multicast IP address (224.0.0.0/4).</description>
     <param-name>registryMulticastIp</param-name>
     <param-value>233.146.53.48</param-value>
@@ -31,7 +26,7 @@
     <servlet-name>jakarta.ws.rs.core.Application</servlet-name>
     <init-param>
       <param-name>jersey.config.server.provider.packages</param-name>
-      <param-value>app.metrodelay.server.api.rs</param-value>
+      <param-value>app.metrodelay.server.storage.rs</param-value>
     </init-param>
     <init-param>
       <param-name>jersey.config.server.tracing.type</param-name>
